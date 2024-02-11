@@ -11,17 +11,18 @@ import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 
 public class DriveTrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  final VictorSP LeftFront = new VictorSP(0);
-  final VictorSP LeftBack = new VictorSP(1);
-
-  final VictorSP RightBack = new VictorSP(3);
-  final VictorSP RightFront = new VictorSP(2);
-    
-    
-  final DifferentialDrive m_Frontdrive= new DifferentialDrive(LeftFront::set, RightFront::set);
-  final DifferentialDrive m_Backdrive = new DifferentialDrive(LeftBack::set, RightBack::set);
-
+  DifferentialDrive m_Frontdrive;
+  DifferentialDrive m_Backdrive;
   public DriveTrain() {
+    final VictorSP LeftFront = new VictorSP(0);
+    final VictorSP LeftBack = new VictorSP(1);
+
+    final VictorSP RightBack = new VictorSP(3);
+    final VictorSP RightFront = new VictorSP(2);
+    
+    
+    m_Frontdrive = new DifferentialDrive(LeftFront::set, RightFront::set);
+    m_Backdrive  = new DifferentialDrive(LeftBack::set, RightBack::set);
     RightFront.setInverted(true);
     RightBack.setInverted(true);
     
@@ -30,10 +31,4 @@ public class DriveTrain extends SubsystemBase {
     m_Frontdrive.arcadeDrive(moveSpeed, rotateSpeed);
     m_Backdrive.arcadeDrive(moveSpeed, rotateSpeed);
   }
-  public void setMaxOutput(double maxOutput) {
-    m_Frontdrive.setMaxOutput(maxOutput);
-    m_Backdrive.setMaxOutput(maxOutput);
-  }
-
-
 }

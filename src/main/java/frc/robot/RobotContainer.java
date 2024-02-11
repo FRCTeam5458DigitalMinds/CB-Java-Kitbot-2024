@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -31,16 +32,6 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-
-    m_drivetrain.setDefaultCommand(
-        // A split-stick arcade command, with forward/backward controlled by the left
-        // hand, and turning controlled by the right.
-        Commands.run(
-            () ->
-                m_drivetrain.arcadeDrive(
-                    //m_driverController.getLeftY(), m_driverController.getRightX()),
-                    m_Stick.getY(), m_Stick.getX()),
-            m_drivetrain));
   }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -54,8 +45,16 @@ public class RobotContainer {
   
   private void configureBindings() {
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-     
-       // A split-stick arcade command, with forward/backward controlled by the left
-       // hand, and turning controlled by the right.
+      // A split-stick arcade command, with forward/backward controlled by the left
+      // hand, and turning controlled by the right.
+    m_drivetrain.setDefaultCommand(
+        // A split-stick arcade command, with forward/backward controlled by the left
+        // hand, and turning controlled by the right.
+        new RunCommand(
+            () ->
+                m_drivetrain.arcadeDrive(
+                    //m_driverController.getLeftY(), m_driverController.getRightX()),
+                    m_Stick.getY(), m_Stick.getX()),
+            m_drivetrain));
   }
 }
