@@ -5,11 +5,10 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.DriveArcade;
 import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -22,17 +21,26 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static final DriveTrain m_drivetrain = new DriveTrain();
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  public final static CommandXboxController m_driverController =
+  public final static CommandXboxController m_Xbox =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  public final static Joystick m_Stick =
+      new Joystick(OperatorConstants.kDriverControllerPort);
 
-  private final Autos m_autoCommand = new Autos();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
 
-    m_drivetrain.setDefaultCommand(new DriveArcade());
+    m_drivetrain.setDefaultCommand(
+        // A split-stick arcade command, with forward/backward controlled by the left
+        // hand, and turning controlled by the right.
+        Commands.run(
+            () ->
+                m_drivetrain.arcadeDrive(
+                    //m_driverController.getLeftY(), m_driverController.getRightX()),
+                    m_Stick.getY(), m_Stick.getX()),
+            m_drivetrain));
   }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -50,18 +58,4 @@ public class RobotContainer {
        // A split-stick arcade command, with forward/backward controlled by the left
        // hand, and turning controlled by the right.
   }
-  public Command getAutonomousCommand() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getAutonomousCommand'");
-  }
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  /*public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(m_Robotdrive);
-  }*/
 }
