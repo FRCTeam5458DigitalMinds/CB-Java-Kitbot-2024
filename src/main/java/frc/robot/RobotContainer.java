@@ -24,7 +24,7 @@ public class RobotContainer {
   public final static CommandXboxController m_Xbox =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
   public final static Joystick m_Stick =
-      new Joystick(OperatorConstants.kDriverControllerPort);
+      new Joystick(1);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
