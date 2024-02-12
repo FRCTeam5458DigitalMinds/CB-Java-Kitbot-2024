@@ -17,10 +17,17 @@ public class DriveTrain extends SubsystemBase {
   public DriveTrain() {
     
     //Identifies the 4 motors depending on what motor controller ( Currently: Victor Sp)
+    //@SuppressWarnings({ "resource" }) used to ignore the warning
+    @SuppressWarnings({ "resource" })
     final VictorSP LeftFront = new VictorSP(0);
+    
+    @SuppressWarnings({ "resource" })
     final VictorSP LeftBack = new VictorSP(1);
-
+    
+    @SuppressWarnings({ "resource" })
     final VictorSP RightBack = new VictorSP(3);
+    
+    @SuppressWarnings({ "resource" })
     final VictorSP RightFront = new VictorSP(2);
     
     //Set what motors are going to be left or right (Used twice for both back and front)
