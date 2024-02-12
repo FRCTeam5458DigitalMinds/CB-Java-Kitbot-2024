@@ -4,29 +4,36 @@
 
 package frc.robot.subsystems;
 
+//Import libraries to use certain functions
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 
 
 public class DriveTrain extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
+  // Sets drivetrain to Differential Drive (Allows it to be controlled by either arcade or tank drive)
   DifferentialDrive m_Frontdrive;
   DifferentialDrive m_Backdrive;
   public DriveTrain() {
+    
+    //Identifies the 4 motors depending on what motor controller ( Currently: Victor Sp)
     final VictorSP LeftFront = new VictorSP(0);
     final VictorSP LeftBack = new VictorSP(1);
 
     final VictorSP RightBack = new VictorSP(3);
     final VictorSP RightFront = new VictorSP(2);
     
-    
+    //Set what motors are going to be left or right (Used twice for both back and front)
     m_Frontdrive = new DifferentialDrive(LeftFront::set, RightFront::set);
     m_Backdrive  = new DifferentialDrive(LeftBack::set, RightBack::set);
+    
+    //Inverts the right side so the driving doesn't get screwed up
     RightFront.setInverted(true);
     RightBack.setInverted(true);
     
   }
+  //Creates arcadeDrive method (Controls are on "RobotContainer.java")
+  //uses arcade Drive method from the library, Differntail Drive, to make the motors move
   public void arcadeDrive(double moveSpeed, double rotateSpeed) {
     m_Frontdrive.arcadeDrive(moveSpeed, rotateSpeed);
     m_Backdrive.arcadeDrive(moveSpeed, rotateSpeed);

@@ -14,6 +14,7 @@ package frc.robot;
  */
 public final class Constants {
   public static class OperatorConstants {
+    //Port where the controller is on the drive station
     public static final int kDriverControllerPort = 0;
   }
 }

@@ -4,13 +4,14 @@
 
 package frc.robot;
 
+//Uses libraries from the other "docs?" and wpilib
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -19,13 +20,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  //Identifies drivetrain from "DriveTrain.java"
   public static final DriveTrain m_drivetrain = new DriveTrain();
-  // Replace with CommandPS4Controller or CommandJoystick if needed
+  /*Identifies controllers
+  *Controllers are on different ports 
+  If for somereason it changes, change the port number based on drive station*/
   public final static CommandXboxController m_Xbox =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-  public final static Joystick m_Stick =
-      new Joystick(1);
+  public final static CommandJoystick m_Stick =
+      new CommandJoystick(1);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -44,15 +47,15 @@ public class RobotContainer {
    */
   
   private void configureBindings() {
-  // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-      // A split-stick arcade command, with forward/backward controlled by the left
-      // hand, and turning controlled by the right.
+    //Turns command into default command
     m_drivetrain.setDefaultCommand(
-        // A split-stick arcade command, with forward/backward controlled by the left
-        // hand, and turning controlled by the right.
+        //Stick: Foward & Back to move;  Left & Right to turn
+        //Controller: Left stick to move forward & back; Right stick to turn
         new RunCommand(
             () ->
+              //Uses command from "DriveTrain.java"
                 m_drivetrain.arcadeDrive(
+                  //Change depending on what controller you are using
                     //m_driverController.getLeftY(), m_driverController.getRightX()),
                     m_Stick.getY(), m_Stick.getX()),
             m_drivetrain));
